@@ -28,9 +28,9 @@ class MoloquentInheritanceTraitTest extends PHPUnit_Framework_TestCase {
 
   public function testFillMoloquentInheritanceTrait()
   {
-    $this->assertEquals($this->character->parentClasses, $this->character->getParentClasses());
+    $this->assertEquals($this->character->parent_classes, $this->character->getParentClasses());
 
-    $this->assertEquals($this->wizzard->parentClasses, $this->wizzard->getParentClasses());
+    $this->assertEquals($this->wizzard->parent_classes, $this->wizzard->getParentClasses());
   }
 
   public function testNewFromBuilder()
