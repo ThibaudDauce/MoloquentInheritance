@@ -1,0 +1,21 @@
+{
+    "name": "thibaud-dauce/moloquent-inheritance",
+    "description": "",
+    "authors": [
+        {
+            "name": "Thibaud Dauce",
+            "email": "thibaud@dauce.fr"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*",
+        "jenssegers/mongodb": "1.4.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "ThibaudDauce\\MoloquentInheritance": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
