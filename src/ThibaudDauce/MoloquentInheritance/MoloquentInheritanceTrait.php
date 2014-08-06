@@ -4,6 +4,23 @@ use ReflectionClass;
 
 trait MoloquentInheritanceTrait {
 
+  public $parentClasses;
+
+  /**
+	 * Fill the model with an array of attributes.
+	 *
+	 * @param  array  $attributes
+	 * @return $this
+	 *
+	 * @throws MassAssignmentException
+	 */
+	public function fill(array $attributes)
+	{
+		$this->setParentClasses();
+
+    return parent::fill($attributes);
+	}
+
   public function getParentClasses() {
 
     $reflection = new ReflectionClass($this);
@@ -16,5 +33,10 @@ trait MoloquentInheritanceTrait {
     }
 
     return $classes;
+  }
+
+  public function setParentClasses() {
+
+    $this->parentClasses = $this->getParentClasses();
   }
 }
