@@ -21,10 +21,15 @@ class MoloquentInheritanceTraitTest extends PHPUnit_Framework_TestCase {
   {
     $classes = $this->wizzard->getParentClasses();
     $this->assertEquals($classes, [get_class($this->wizzard), get_class($this->character)]);
+
+    $classes = $this->character->getParentClasses();
+    $this->assertEquals($classes, [get_class($this->character)]);
   }
 
   public function testFillMoloquentInheritanceTrait()
   {
+    $this->assertEquals($this->character->parentClasses, $this->character->getParentClasses());
+
     $this->assertEquals($this->wizzard->parentClasses, $this->wizzard->getParentClasses());
   }
 }
