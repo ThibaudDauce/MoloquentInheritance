@@ -6,6 +6,16 @@ trait MoloquentInheritanceTrait {
 
   public $parentClasses;
 
+	/**
+	 * Boot the moloquent inheritance for a model.
+	 *
+	 * @return void
+	 */
+	public static function bootMoloquentInheritanceTrait()
+	{
+		static::addGlobalScope(new MoloquentInheritanceScope);
+	}
+
   /**
 	 * Fill the model with an array of attributes.
 	 *
