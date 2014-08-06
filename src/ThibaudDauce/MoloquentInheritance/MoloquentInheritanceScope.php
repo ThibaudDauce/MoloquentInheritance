@@ -20,6 +20,7 @@ class MoloquentInheritanceScope implements ScopeInterface {
 	 */
 	public function apply(Builder $builder)
 	{
+    $builder->where('parent_classes', 'all', [static::class]);
 	}
 
 	/**
