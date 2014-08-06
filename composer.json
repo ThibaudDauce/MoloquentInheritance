@@ -1,6 +1,8 @@
 {
     "name": "thibaud-dauce/moloquent-inheritance",
-    "description": "",
+    "description": "Provide single table inheritance for Moloquent models.",
+    "keywords": ["laravel", "model", "inheritance", "mongo"],
+    "license": "MIT",
     "authors": [
         {
             "name": "Thibaud Dauce",
