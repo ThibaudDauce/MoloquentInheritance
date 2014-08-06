@@ -50,7 +50,7 @@ trait MoloquentInheritanceTrait {
    */
   public function newFromBuilder($attributes = array())
   {
-    $class = $attributes->parentClasses[0];
+    $class = $this->parentClasses[0];
     $instance = new $class;
 
     $instance->setRawAttributes((array) $attributes, true);
