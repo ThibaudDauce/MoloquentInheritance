@@ -9,6 +9,7 @@ trait MoloquentInheritanceTrait {
   /**
 	 * Fill the model with an array of attributes.
 	 *
+   * @override Illuminate\Database\Eloquent\Model
 	 * @param  array  $attributes
 	 * @return $this
 	 *
@@ -38,5 +39,22 @@ trait MoloquentInheritanceTrait {
   public function setParentClasses() {
 
     $this->parentClasses = $this->getParentClasses();
+  }
+
+  /**
+   * Create a new model instance that is existing.
+   *
+   * @override Illuminate\Database\Eloquent\Model
+   * @param  array  $attributes
+   * @return \Illuminate\Database\Eloquent\Model|static
+   */
+  public function newFromBuilder($attributes = array())
+  {
+    $class = $attributes->parentClasses[0];
+    $instance = new $class;
+
+    $instance->setRawAttributes((array) $attributes, true);
+
+    return $instance;
   }
 }

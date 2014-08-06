@@ -32,6 +32,27 @@ class MoloquentInheritanceTraitTest extends PHPUnit_Framework_TestCase {
 
     $this->assertEquals($this->wizzard->parentClasses, $this->wizzard->getParentClasses());
   }
+
+  public function testNewFromBuilder()
+  {
+    // Test with the parent class without a class_name
+    $character = new Character;
+    $characterAttributes = ['name' => 'Antoine'];
+    $character = $character->newFromBuilder($characterAttributes);
+
+    $this->assertTrue($character instanceof Character);
+    $this->assertFalse($character instanceof Wizard);
+    $this->assertEquals($characterAttributes['name'], $character->getAttribute('name'));
+
+    // Test with a child class
+    $wizzard = new Wizzard;
+    $wizzardAttributes = ['name' => 'Antoine', 'rage' => 42];
+    $wizzard = $wizzard->newFromBuilder($wizzardAttributes);
+
+    $this->assertTrue($wizzard instanceof Wizzard);
+    $this->assertEquals($wizzardAttributes['name'], $wizzard->getAttribute('name'));
+    $this->assertEquals($wizzardAttributes['rage'], $wizzard->getAttribute('rage'));
+  }
 }
 
 class Character extends Model {
