@@ -4,67 +4,67 @@ use ReflectionClass;
 
 trait MoloquentInheritanceTrait {
 
-  public $parentClasses;
+    public $parentClasses;
 
-	/**
-	 * Boot the moloquent inheritance for a model.
-	 *
-	 * @return void
-	 */
-	public static function bootMoloquentInheritanceTrait()
-	{
-		static::addGlobalScope(new MoloquentInheritanceScope);
-	}
-
-  /**
-	 * Fill the model with an array of attributes.
-	 *
-   * @override Illuminate\Database\Eloquent\Model
-	 * @param  array  $attributes
-	 * @return $this
-	 *
-	 * @throws MassAssignmentException
-	 */
-	public function fill(array $attributes)
-	{
-		$this->setParentClasses();
-
-    return parent::fill($attributes);
-	}
-
-  public function getParentClasses() {
-
-    $reflection = new ReflectionClass($this);
-
-    $classes = [$reflection->getName()];
-
-    while ($reflection->getName() !== get_class()) {
-      $reflection = $reflection->getParentClass();
-      $classes[] = $reflection->getName();
+    /**
+     * Boot the moloquent inheritance for a model.
+     *
+     * @return void
+     */
+    public static function bootMoloquentInheritanceTrait()
+    {
+        static::addGlobalScope(new MoloquentInheritanceScope);
     }
 
-    return $classes;
-  }
+    /**
+     * Fill the model with an array of attributes.
+     *
+     * @override Illuminate\Database\Eloquent\Model
+     * @param  array  $attributes
+     * @return $this
+     *
+     * @throws MassAssignmentException
+     */
+    public function fill(array $attributes)
+    {
+        $this->setParentClasses();
 
-  public function setParentClasses() {
+        return parent::fill($attributes);
+    }
 
-    $this->attributes['parent_classes'] = $this->getParentClasses();
-  }
+    public function getParentClasses() {
 
-  /**
-   * Create a new model instance that is existing.
-   *
-   * @override Illuminate\Database\Eloquent\Model
-   * @param  array  $attributes
-   * @return \Illuminate\Database\Eloquent\Model|static
-   */
-  public function newFromBuilder($attributes = array())
-  {
-    $class = $this->parent_classes[0];
-    $instance = new $class;
+        $reflection = new ReflectionClass($this);
 
-    $instance->setRawAttributes((array) $attributes, true);
+        $classes = [$reflection->getName()];
 
-    return $instance;
-  }
+        while ($reflection->getName() !== get_class()) {
+            $reflection = $reflection->getParentClass();
+            $classes[] = $reflection->getName();
+        }
+
+        return $classes;
+    }
+
+    public function setParentClasses() {
+
+        $this->attributes['parent_classes'] = $this->getParentClasses();
+    }
+
+    /**
+     * Create a new model instance that is existing.
+     *
+     * @override Illuminate\Database\Eloquent\Model
+     * @param  array  $attributes
+     * @return \Illuminate\Database\Eloquent\Model|static
+     */
+    public function newFromBuilder($attributes = array())
+    {
+        $class = $this->parent_classes[0];
+        $instance = new $class;
+
+        $instance->setRawAttributes((array) $attributes, true);
+
+        return $instance;
+    }
 }
