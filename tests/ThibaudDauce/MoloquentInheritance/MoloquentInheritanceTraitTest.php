@@ -37,7 +37,12 @@ class MoloquentInheritanceTraitTest extends PHPUnit_Framework_TestCase {
   {
     // Test with the parent class without a class_name
     $character = new Character;
-    $characterAttributes = ['name' => 'Antoine'];
+    $characterAttributes = [
+        'name' => 'Antoine',
+        'parent_classes' => [
+            'ThibaudDauce\MoloquentInheritance\Character'
+        ]
+    ];
     $character = $character->newFromBuilder($characterAttributes);
 
     $this->assertTrue($character instanceof Character);
@@ -46,7 +51,14 @@ class MoloquentInheritanceTraitTest extends PHPUnit_Framework_TestCase {
 
     // Test with a child class
     $wizzard = new Wizzard;
-    $wizzardAttributes = ['name' => 'Antoine', 'rage' => 42];
+    $wizzardAttributes = [
+        'name' => 'Antoine',
+        'rage' => 42,
+        'parent_classes' => [
+                'ThibaudDauce\MoloquentInheritance\Wizzard',
+                'ThibaudDauce\MoloquentInheritance\Character'
+            ]
+    ];
     $wizzard = $wizzard->newFromBuilder($wizzardAttributes);
 
     $this->assertTrue($wizzard instanceof Wizzard);
