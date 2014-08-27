@@ -61,13 +61,10 @@ trait MoloquentInheritanceTrait {
     public function newFromBuilder($attributes = array())
     {
         $class = $attributes['parent_classes'][0];
-        
-        if ($this instanceof $class)
-            return parent::newFromBuilder($attributes);
-
         $instance = new $class;
 
-        $instance->newFromBuilder((array) $attributes);
+        $instance = $instance->newInstance(array(), true);
+        $instance->setRawAttributes((array) $attributes);
 
         return $instance;
     }
