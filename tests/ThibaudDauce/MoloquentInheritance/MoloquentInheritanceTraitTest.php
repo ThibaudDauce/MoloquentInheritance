@@ -41,7 +41,7 @@ class MoloquentInheritanceTraitTest extends PHPUnit_Framework_TestCase
         $characterAttributes = [
             'name' => 'Antoine',
             'parent_classes' => [
-                'ThibaudDauce\MoloquentInheritance\Character'
+                Character::class
             ]
         ];
         $character = $character->newFromBuilder($characterAttributes);
@@ -56,8 +56,8 @@ class MoloquentInheritanceTraitTest extends PHPUnit_Framework_TestCase
             'name' => 'Antoine',
             'rage' => 42,
             'parent_classes' => [
-            'ThibaudDauce\MoloquentInheritance\Wizard',
-                'ThibaudDauce\MoloquentInheritance\Character'
+                Wizard::class,
+                Character::class
             ]
         ];
         $wizard = $wizard->newFromBuilder($wizardAttributes);
