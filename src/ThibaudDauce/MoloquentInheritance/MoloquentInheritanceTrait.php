@@ -4,7 +4,8 @@ use Illuminate\Database\Eloquent\MassAssignmentException;
 use ReflectionClass;
 use Illuminate\Database\Eloquent\Model;
 
-trait MoloquentInheritanceTrait {
+trait MoloquentInheritanceTrait
+{
 
     public $parentClasses;
 
@@ -34,8 +35,8 @@ trait MoloquentInheritanceTrait {
         return parent::fill($attributes);
     }
 
-    public function getParentClasses() {
-
+    public function getParentClasses()
+    {
         $reflection = new ReflectionClass($this);
 
         $classes = [$reflection->getName()];
@@ -48,8 +49,8 @@ trait MoloquentInheritanceTrait {
         return $classes;
     }
 
-    public function setParentClasses() {
-
+    public function setParentClasses()
+    {
         $this->attributes['parent_classes'] = $this->getParentClasses();
     }
 
@@ -65,8 +66,9 @@ trait MoloquentInheritanceTrait {
     {
         $class = $attributes['parent_classes'][0];
 
-        if ($this instanceof $class)
+        if ($this instanceof $class) {
             return parent::newFromBuilder($attributes, $connection);
+        }
 
         $instance = new $class;
 
