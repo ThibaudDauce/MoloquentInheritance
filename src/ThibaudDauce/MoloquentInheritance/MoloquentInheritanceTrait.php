@@ -1,6 +1,8 @@
 <?php namespace ThibaudDauce\MoloquentInheritance;
 
+use Illuminate\Database\Eloquent\MassAssignmentException;
 use ReflectionClass;
+use Illuminate\Database\Eloquent\Model;
 
 trait MoloquentInheritanceTrait {
 
@@ -19,8 +21,8 @@ trait MoloquentInheritanceTrait {
     /**
      * Fill the model with an array of attributes.
      *
-     * @override Illuminate\Database\Eloquent\Model
-     * @param  array  $attributes
+     * @override Model
+     * @param array $attributes
      * @return $this
      *
      * @throws MassAssignmentException
@@ -54,19 +56,20 @@ trait MoloquentInheritanceTrait {
     /**
      * Create a new model instance that is existing.
      *
-     * @override Illuminate\Database\Eloquent\Model
-     * @param  array  $attributes
-     * @return \Illuminate\Database\Eloquent\Model|static
+     * @override Model
+     * @param array $attributes
+     * @param null $connection
+     * @return Model|static
      */
-    public function newFromBuilder($attributes = array())
+    public function newFromBuilder($attributes = array(), $connection = null)
     {
         $class = $attributes['parent_classes'][0];
 
         if ($this instanceof $class)
-            return parent::newFromBuilder($attributes);
+            return parent::newFromBuilder($attributes, $connection);
 
         $instance = new $class;
 
-        return $instance->newFromBuilder($attributes);
+        return $instance->newFromBuilder($attributes, $connection);
     }
 }
