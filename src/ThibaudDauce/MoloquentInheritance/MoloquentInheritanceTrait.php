@@ -64,8 +64,7 @@ trait MoloquentInheritanceTrait
      */
     public function newFromBuilder($attributes = array(), $connection = null)
     {
-        if (
-            array_key_exists('parent_classes', $attributes) and
+        if (array_key_exists('parent_classes', $attributes) and
             is_array($attributes['parent_classes']) and
             !empty($attributes['parent_classes'])
         ) {
