@@ -65,14 +65,14 @@ trait MoloquentInheritanceTrait
     public function newFromBuilder($attributes = array(), $connection = null)
     {
         if (
-            array_key_exists('parent_classes', $attributes) AND
-            is_array($attributes['parent_classes']) AND
+            array_key_exists('parent_classes', $attributes) and
+            is_array($attributes['parent_classes']) and
             !empty($attributes['parent_classes'])
         ) {
             $class = $attributes['parent_classes'][0];
         }
 
-        if (!isset($class) OR $this instanceof $class) {
+        if (!isset($class) or $this instanceof $class) {
             return parent::newFromBuilder($attributes, $connection);
         }
 
