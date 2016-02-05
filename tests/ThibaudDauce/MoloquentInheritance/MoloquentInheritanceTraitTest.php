@@ -66,4 +66,48 @@ class MoloquentInheritanceTraitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($wizardAttributes['name'], $wizard->getAttribute('name'));
         $this->assertEquals($wizardAttributes['rage'], $wizard->getAttribute('rage'));
     }
+
+    public function testNewFromBuilderWithoutParentClasses()
+    {
+        // Test with the parent class without a class_name
+        $character = new Character;
+        $characterAttributes = [
+            'name' => 'Antoine',
+        ];
+        $character = $character->newFromBuilder($characterAttributes);
+
+        $this->assertTrue($character instanceof Character);
+        $this->assertFalse($character instanceof Wizard);
+        $this->assertEquals($characterAttributes['name'], $character->getAttribute('name'));
+    }
+
+    public function testNewFromBuilderWithWrongParentClassesType()
+    {
+        // Test with the parent class without a class_name
+        $character = new Character;
+        $characterAttributes = [
+            'name' => 'Antoine',
+            'parent_classes' => 3,
+        ];
+        $character = $character->newFromBuilder($characterAttributes);
+
+        $this->assertTrue($character instanceof Character);
+        $this->assertFalse($character instanceof Wizard);
+        $this->assertEquals($characterAttributes['name'], $character->getAttribute('name'));
+    }
+
+    public function testNewFromBuilderWithEmptyParentClassesArray()
+    {
+        // Test with the parent class without a class_name
+        $character = new Character;
+        $characterAttributes = [
+            'name' => 'Antoine',
+            'parent_classes' => [],
+        ];
+        $character = $character->newFromBuilder($characterAttributes);
+
+        $this->assertTrue($character instanceof Character);
+        $this->assertFalse($character instanceof Wizard);
+        $this->assertEquals($characterAttributes['name'], $character->getAttribute('name'));
+    }
 }
